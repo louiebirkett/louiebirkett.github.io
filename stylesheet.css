@@ -2,6 +2,10 @@
     font-family: 'Inter', sans-serif ;
     src: url('/Users/louie/Desktop/senglish/website/fonts/Inter/Inter-VariableFont_slnt,wght.ttf');
 }
+@font-face {
+    font-family: 'Inter-black', sans-serif ;
+    src: url('/Users/louie/Desktop/senglish/website/fonts/Inter/static/Inter-Black.ttf');
+}
 
 *{
     color: black;
@@ -10,7 +14,7 @@
 
 header{
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
     background-color: #F3F3F3;
     /* border: solid 1px red; */
@@ -18,38 +22,92 @@ header{
 }
 
 #navLogo{
-    max-width: 25rem
+    max-width: 15rem
 }
 
 li {
     display: inline-block;
-    font-size: 2.5em;
+    font-size: 1em;
     font-weight: bold;
-    padding-inline: 5rem;
-    border: solid green 1x;    
+    padding-inline: 3em;
 }
+
 a{
     text-decoration: none;
     font-family: 'Inter',  sans-serif;
 }
 
 a:hover{
-    border-bottom: #2746D2 5px groove;
-    border-radius: 5px 5px;
+    border-bottom: #2746D2 3px groove;
+    border-radius: 3px 3px;
 }
 .activePage{
-    border-bottom: #2746D2 5px groove;
-    border-radius: 5px 5px;
+    border-bottom: #2746D2 3px groove;
+    border-radius: 3px 3px;
 
     
 }
 
-body{
+.bannerContainer{
+    /* display: inline; */
+    /* border: solid red 1px; */
+    max-width: 100%;
+    height: 65dvh;
+    background-color: #2746D2;
+    
+}
+.banner{
+    background-color: #2746ff;
+    background-image: url(images/van.png);
+    height: 65dvh;
+    background-position:center;
+    
 }
 
-.banner img{
-    max-width: 100%; 
+.bannerRibbon{
+    background-image: url(images/bannerBackground.svg);
+    width: 55%;
+    height: 14vh;
+    position: absolute;
+    top: 25%;
 }
+
+
+.bannerRibbon h1{
+    min-width: 100%;
+    color: white;
+    font-family: 'Inter-black', sans-serif ;
+    font-weight: bold;
+    line-height: 121.5%;
+    letter-spacing: 3px;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-size: 2.5rem;
+}
+.bannerRibbon h2{
+    min-width: 100%;
+    color: #B3BEF0;
+    font-family: 'Inter', sans-serif ;
+    font-weight:900;
+    letter-spacing: 2px;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 1.5rem;
+}
+
+.bannerLabel{
+    /* border: solid red 1px; */
+    width: 400px;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    height: 530px;
+}
+
+
+
+
 
 @media  (max-width: 780px) {
     li{
@@ -64,19 +122,60 @@ body{
         justify-content: center;
         max-width: 20rem;
     }
+
+    .bannerContainer{
+        height: 30dvh;
+    }
+    .banner{
+        height: 30dvh;
+        background-size: cover;
+    }
+
+
+    .bannerRibbon h1{
+        font-size: 1.5rem;
+    }
+    .bannerRibbon h2{
+        font-size: 1rem;
+    }
+    
 }
 
-@media  (max-width: 583px) {
+
+@media  (max-width: 600px) {    
     li{
-        display: block;
+        display: inline-block;
+        font-size: small;
+    text-align: center;    }
+
+    nav{
+        /* border: solid red 1px; */
     }
 
-    .banner img *{
-        /* width: 100%; */
-        /* height: 500px; */
-        /* padding: 10px; */
-        /* height: 5rem; */
+    .bannerContainer{
+        height: 30dvh;
     }
+    .banner{
+        height: 30dvh;
+        background-size: cover;
+    }
+    .bannerRibbon h1{
+        font-size: 1rem;
+    }
+    .bannerRibbon h2{
+        font-size: .8rem;
+    }
+
+    .bannerRibbon{
+        background-image: url(images/bannerBackground.svg);
+        width: 55%;
+        height: 14vh;
+        position: absolute;
+        top: 25%;
+    }
+
 }
+
+
 
 
