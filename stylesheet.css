@@ -100,7 +100,7 @@ a:hover{
     /* border: solid red 1px; */
     width: 400px;
     overflow: hidden;
-    position: fixed;
+    position: absolute;
     right: 0;
     height: 530px;
 }
@@ -137,6 +137,10 @@ a:hover{
     }
     .bannerRibbon h2{
         font-size: 1rem;
+    }
+
+    .bannerLabel{
+        display: none;
     }
     
 }
