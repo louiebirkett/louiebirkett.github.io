@@ -3,56 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylesheet.css"> <!-- stylesheet-->
-    <title>S English Construction</title>
+    <title>Reel Slots</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
-<header>
-    
-        <img id="navLogo" src="images/senglishlogo.svg" alt="logo">
-
-        <nav>
-            <ul>
-                <li><a class="activePage" href="index.html">Welcome</a></li>
-                <li><a href="">About Us</a></li>
-                <li><a href="">Our Work</a></li>
-                <li><a href="">Contact Us</a></li>
-            </ul>
-        </nav>    
-    
-</header>
-
 <body>
-    <div class="bannerContainer">
-        <div class="banner">
-            <div class="bannerRibbon">
-                <h1>YOUR VISION, OUR EXPERTISE</h1>
-                <h2>DELIVERING HIGH QUALITY RESULTS</h2>
-            </div>
-            <div class="bannerLabel">
-                <img src="images/label.svg" alt="">
-            </div>
+    <div class="start-overlay" id="start-overlay">
+        <div class="start-content">
+            <h2>🎰 REEL SLOTS 🎰</h2>
+            <button id="start-btn" class="start-button">CLICK TO START</button>
         </div>
     </div>
 
+    <div class="machine">
+        <div class="header">
+            <h1>🎰 REEL SLOTS 🎰</h1>
+            <div class="credits">
+                <span>CREDITS: </span><span id="credits">100</span>
+            </div>
+        </div>
+        
+        <div class="slot-container">
+            <div class="win-line"></div>
+            <div class="reel-window">
+                <div class="reel" id="reel1">
+                    <!-- Videos injected by JS -->
+                </div>
+            </div>
+            <div class="reel-window">
+                <div class="reel" id="reel2">
+                    <!-- Videos injected by JS -->
+                </div>
+            </div>
+            <div class="reel-window">
+                <div class="reel" id="reel3">
+                    <!-- Videos injected by JS -->
+                </div>
+            </div>
+            <div class="reel-window">
+                <div class="reel" id="reel4">
+                    <!-- Videos injected by JS -->
+                </div>
+            </div>
+            <div class="reel-window">
+                <div class="reel" id="reel5">
+                    <!-- Videos injected by JS -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="result-display">
+            <span id="result-text">SPIN TO WIN!</span>
+        </div>
+        
+        <div class="controls">
+            <button id="spin-btn" class="spin-button">
+                <span class="spin-text">SPIN</span>
+                <span class="spin-cost">-10 credits</span>
+            </button>
+        </div>
+        
+        <div class="payout-table">
+            <h3>PAYOUTS</h3>
+            <div class="payout-row">3 Matching = <strong>50 credits</strong></div>
+        </div>
+    </div>
 
-    <div class="heroText">
-        <p>S ENGLISH Specialises in Interior and Exterior Plastering, Damp Proofing, 
-            Property Maintenance & Renovation, Decorating, and other building works related to our field.</p>
-    </div>
-    <div class="quoteButton">
-        <a href="index.html"><button href="index.html"> Get a Quote</button></a>
-    </div>
-    
+    <script src="script.js"></script>
 </body>
-
-<footer>
-    <div class="contactWrapper">
-        <h1 id="title">Contact Us</h1>
-        <h1>07999 492796</h1>
-        <h1>spenglish1@yahoo.co.uk</h1> 
-    </div>
-</footer>
-
-<link rel="script" href="scripts/app.js"> <!-- javascript-->
 </html>
