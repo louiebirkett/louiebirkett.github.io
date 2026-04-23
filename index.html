@@ -6,6 +6,9 @@
     <title>Reel Slots</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<div id="big-win-banner" class="big-win-banner hidden">
+    BIG WIN!
+</div>
 <body>
     <div class="start-overlay" id="start-overlay">
         <div class="start-content">
@@ -13,17 +16,16 @@
             <button id="start-btn" class="start-button">CLICK TO START</button>
         </div>
     </div>
-
+<img src="images/logo1.png" class="logo1" alt="Logo">
     <div class="machine">
         <div class="header">
-            <h1>🎰 REEL SLOTS 🎰</h1>
             <div class="credits">
                 <span>CREDITS: </span><span id="credits">100</span>
             </div>
         </div>
         
         <div class="slot-container">
-            <div class="win-line"></div>
+            <!-- <div class="win-line"></div> -->
             <div class="reel-window">
                 <div class="reel" id="reel1">
                     <!-- Videos injected by JS -->
@@ -69,5 +71,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </body>
 </html>

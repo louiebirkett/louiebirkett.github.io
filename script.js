@@ -16,15 +16,15 @@ const placeholderEmojis = ['🎬', '🎥', '📱', '🎪', '🎭'];
 
 
 // Return to Player percentages and Win Payout
-const RTP = 0.35;           // 35% chance that a spin is a "win"
-const WIN_PAYOUT = 300;     // payout for 5-of-a-kind
+const RTP = 0.15;           // 35% chance that a spin is a "win"
+const WIN_PAYOUT = 100;     // payout for 5-of-a-kind
 
 
 // ============================================
 // GAME STATE
 // ============================================
 
-const ITEM_HEIGHT = 200; // Must match CSS .slot-item height
+const ITEM_HEIGHT = 425; // Must match CSS .slot-item height
 const ITEMS_PER_REEL = 5;
 const SPIN_COST = 10;
 let credits = 100;
@@ -237,8 +237,16 @@ function animateReel(reel, targetIndex, stopDelay, onComplete) {
         reel.classList.remove('spinning');
         reel.classList.add('stopping');
         
-        const finalOffset = targetPosition * ITEM_HEIGHT;
-        reel.style.transform = `translateY(-${finalOffset}px)`;
+const reelWindow = reel.parentElement;
+const windowHeight = reelWindow.offsetHeight;
+
+// Centering offset
+const centerOffset = (windowHeight / 2) - (ITEM_HEIGHT / 2);
+
+// Final position
+const finalOffset = (targetPosition * ITEM_HEIGHT) - centerOffset;
+
+reel.style.transform = `translateY(-${finalOffset}px)`;
         reel.dataset.currentIndex = targetIndex;
         
         // Play sound effect (optional - add your own sound file)
@@ -271,14 +279,28 @@ function checkWin(results) {
 
     if (payout > 0) {
         credits += payout;
-        updateCreditsDisplay();
+        updateCreditsDisplay()
         showResult(`🎉 WIN! +${payout} CREDITS 🎉`, 'win');
         highlightWinners(results);
+         if (payout >= WIN_PAYOUT) {
+        showBigWin();
+        playWinSound();
+        launchConfetti();
+    }
+        
     } else {
         showResult('TRY AGAIN!', 'lose');
     }
 
     document.getElementById('spin-btn').disabled = false;
+}
+function showBigWin() {
+    const banner = document.getElementById("big-win-banner");
+    banner.classList.remove("hidden");
+
+    setTimeout(() => {
+        banner.classList.add("hidden");
+    }, 2500);
 }
 
 
@@ -295,7 +317,6 @@ function highlightWinners(results) {
                 item.classList.add('winner');
             }
         });
-        playWinSound();
     });
 }
 
@@ -334,5 +355,22 @@ function playWinSound() {
     const audio = new Audio('sounds/win.mp3');
     audio.volume = 0.5;
     audio.play();
+}
+function launchConfetti() {
+    const duration = 2 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 6,
+            spread: 70,
+            startVelocity: 35,
+            origin: { x: Math.random(), y: Math.random() - 0.2 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
 }
 
