@@ -9,6 +9,21 @@ const videoSources = [
     'videos/3.mp4',
     'videos/4.mp4',
     'videos/5.mp4',
+    'videos/6.mp4',
+    'videos/7.mp4',
+    'videos/8.mp4',
+    'videos/9.mp4',
+    'videos/10.mp4',
+    'videos/11.mp4',
+     'videos/12.mp4',
+    'videos/13.mp4',
+    'videos/14.mp4',
+    'videos/15.mp4',
+    'videos/16.mp4',
+    'videos/17.mp4',
+    'videos/18.mp4',
+    'videos/19.mp4',
+    'videos/20.mp4'
 ];
 
 // Placeholder emojis used when no videos are provided
@@ -158,6 +173,7 @@ function generateResults() {
 
 function spin() {
     if (isSpinning) return;
+    resetAllVideoAudio();
 
     if (credits < SPIN_COST) {
         showResult('NOT ENOUGH CREDITS!', 'lose');
@@ -261,6 +277,14 @@ reel.style.transform = `translateY(-${finalOffset}px)`;
     }, stopDelay);
 }
 
+function resetAllVideoAudio() {
+    document.querySelectorAll('.slot-item video').forEach(video => {
+        video.pause();
+        video.muted = true;
+        video.currentTime = 0;
+    });
+}
+
 // ============================================
 // WIN CHECKING
 // ============================================
@@ -286,6 +310,7 @@ function checkWin(results) {
         showBigWin();
         playWinSound();
         launchConfetti();
+        playBigWinVideoAudio();
     }
         
     } else {
@@ -315,6 +340,27 @@ function highlightWinners(results) {
         items.forEach(item => {
             if (parseInt(item.dataset.index) === results[i]) {
                 item.classList.add('winner');
+            }
+        });
+    });
+}
+
+function playBigWinVideoAudio() {
+    const reels = document.querySelectorAll('.reel');
+
+    reels.forEach(reel => {
+        const items = reel.querySelectorAll('.slot-item');
+
+        items.forEach(item => {
+            const video = item.querySelector('video');
+            if (!video) return;
+
+            // ONLY unmute winning visuals
+            if (item.classList.contains('winner')) {
+                video.muted = false;
+                video.volume = 0.8;
+                video.currentTime = 0;
+                video.play().catch(e => console.log(e));
             }
         });
     });
