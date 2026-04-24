@@ -321,8 +321,7 @@ inset -1px 1px 20px 0px #ffd700, inset 1px -1px 17px 20px rgba(255, 215, 0, 0.3)
 .spin-button:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 
-        0 8px 0 #8b1a1a,
-        0 12px 25px rgba(0, 0, 0, 0.4);
+        inset -1px 1px 20px 0px #0be537, inset 1px -1px 17px 20px rgba(19, 246, 3, 0.688), 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .spin-button:active:not(:disabled) {
