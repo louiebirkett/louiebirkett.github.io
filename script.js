@@ -31,7 +31,7 @@ const placeholderEmojis = ['🎬', '🎥', '📱', '🎪', '🎭'];
 
 
 // Return to Player percentages and Win Payout
-const RTP = 0.15;           // 35% chance that a spin is a "win"
+const RTP = 0.85;           // 35% chance that a spin is a "win"
 const WIN_PAYOUT = 100;     // payout for 5-of-a-kind
 
 
@@ -45,6 +45,8 @@ const SPIN_COST = 10;
 let credits = 100;
 let isSpinning = false;
 let useVideos = videoSources.length >= ITEMS_PER_REEL;
+const REEL_VOLUME = 0.1;   // adjust this (0.0 - 1.0)
+const WIN_VOLUME = 0.1;
 
 // ============================================
 // INITIALIZATION
@@ -59,6 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.getElementById('spin-btn').addEventListener('click', spin);
     updateCreditsDisplay();
+});
+
+let gamepadIndex = null;
+
+window.addEventListener("gamepadconnected", (e) => {
+    console.log("Gamepad connected:", e.gamepad);
+    gamepadIndex = e.gamepad.index;
+    pollGamepad();
 });
 
 function initializeReels() {
@@ -104,6 +114,8 @@ function playVisibleVideos() {
             
             if (parseInt(item.dataset.index) === currentIndex) {
                 video.currentTime = 0;
+                video.muted = true;
+                video.volume = REEL_VOLUME;
                 video.play().catch(e => console.log('Autoplay blocked:', e));
             } else {
                 video.pause();
@@ -170,6 +182,27 @@ function generateResults() {
     return results;
 }
 
+let lastButtonState = false; // prevents spam
+
+function pollGamepad() {
+    if (gamepadIndex === null) return;
+
+    const gamepad = navigator.getGamepads()[gamepadIndex];
+    if (!gamepad) return;
+
+    // Button 0 = "Button 1" on most encoders
+    const pressed = gamepad.buttons[0].pressed;
+
+    // Only trigger on press (not hold)
+    if (pressed && !lastButtonState) {
+        console.log("Joystick Button 1 pressed");
+        spin(); 
+    }
+
+    lastButtonState = pressed;
+
+    requestAnimationFrame(pollGamepad);
+}
 
 function spin() {
     if (isSpinning) return;
@@ -304,7 +337,7 @@ function checkWin(results) {
     if (payout > 0) {
         credits += payout;
         updateCreditsDisplay()
-        showResult(`🎉 WIN! +${payout} CREDITS 🎉`, 'win');
+        showResult(` WIN! +${payout} CREDITS `, 'win');
         highlightWinners(results);
          if (payout >= WIN_PAYOUT) {
         showBigWin();
@@ -346,24 +379,23 @@ function highlightWinners(results) {
 }
 
 function playBigWinVideoAudio() {
-    const reels = document.querySelectorAll('.reel');
+    const winningVideos = [];
 
-    reels.forEach(reel => {
-        const items = reel.querySelectorAll('.slot-item');
-
-        items.forEach(item => {
-            const video = item.querySelector('video');
-            if (!video) return;
-
-            // ONLY unmute winning visuals
-            if (item.classList.contains('winner')) {
-                video.muted = false;
-                video.volume = 0.8;
-                video.currentTime = 0;
-                video.play().catch(e => console.log(e));
-            }
-        });
+    document.querySelectorAll('.slot-item.winner video').forEach(video => {
+        if (video) winningVideos.push(video);
     });
+
+    if (winningVideos.length === 0) return;
+
+    // pick ONE winner only
+    const chosen = winningVideos[0];
+
+    chosen.pause();
+    chosen.currentTime = 0;
+    chosen.muted = false;
+    chosen.volume = WIN_VOLUME;
+
+    chosen.play().catch(e => console.log(e));
 }
 
 // ============================================
@@ -399,7 +431,7 @@ function playStopSound() {
 
 function playWinSound() {
     const audio = new Audio('sounds/win.mp3');
-    audio.volume = 0.5;
+    audio.volume = 1;
     audio.play();
 }
 function launchConfetti() {
