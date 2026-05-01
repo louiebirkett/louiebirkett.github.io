@@ -11,19 +11,22 @@ const videoSources = [
     // 'videos/5.mp4',
     // 'videos/6.mp4',
     'videos/7.mp4',
-    'videos/8.mp4',
+    // 'videos/8.mp4',
     // 'videos/9.mp4',
     // 'videos/10.mp4',
     // 'videos/11.mp4',
     //  'videos/12.mp4',
-    // 'videos/13.mp4',
+    'videos/13.mp4',
     // 'videos/14.mp4',
     // 'videos/15.mp4',
     'videos/16.mp4',
-    'videos/17.mp4',
-    // 'videos/18.mp4',
+    // 'videos/17.mp4',
+    'videos/18.mp4',
     // 'videos/19.mp4',
-    'videos/20.mp4'
+    // 'videos/20.mp4'
+    // 'videos/21.mp4',
+    'videos/23.mp4',
+
 ];
 
 // Placeholder emojis used when no videos are provided
@@ -388,7 +391,7 @@ function playBigWinVideoAudio() {
     if (winningVideos.length === 0) return;
 
     // pick ONE winner only
-    const chosen = winningVideos[0];
+    const chosen = winningVideos[2];
 
     chosen.pause();
     chosen.currentTime = 0;
@@ -431,7 +434,7 @@ function playStopSound() {
 
 function playWinSound() {
     const audio = new Audio('sounds/win.mp3');
-    audio.volume = 1;
+    audio.volume = .3;
     audio.play();
 }
 function launchConfetti() {
