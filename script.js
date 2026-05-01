@@ -31,7 +31,7 @@ const placeholderEmojis = ['🎬', '🎥', '📱', '🎪', '🎭'];
 
 
 // Return to Player percentages and Win Payout
-const RTP = 0.85;           // 35% chance that a spin is a "win"
+const RTP = 0.45;           // 35% chance that a spin is a "win"
 const WIN_PAYOUT = 100;     // payout for 5-of-a-kind
 
 
@@ -337,7 +337,7 @@ function checkWin(results) {
     if (payout > 0) {
         credits += payout;
         updateCreditsDisplay()
-        showResult(` WIN! +${payout} CREDITS `, 'win');
+        showResult(`+${payout} CREDITS `, 'win');
         highlightWinners(results);
          if (payout >= WIN_PAYOUT) {
         showBigWin();
