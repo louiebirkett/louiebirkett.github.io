@@ -13,18 +13,18 @@ const videoSources = [
     'videos/7.mp4',
     // 'videos/8.mp4',
     // 'videos/9.mp4',
-    // 'videos/10.mp4',
+    'videos/10.mp4',
     // 'videos/11.mp4',
     //  'videos/12.mp4',
-    'videos/13.mp4',
+    // 'videos/13.mp4',
     // 'videos/14.mp4',
     // 'videos/15.mp4',
     'videos/16.mp4',
     // 'videos/17.mp4',
     'videos/18.mp4',
     // 'videos/19.mp4',
-    // 'videos/20.mp4'
-    // 'videos/21.mp4',
+    // 'videos/20.mp4',
+    'videos/21.mp4',
     'videos/23.mp4',
 
 ];
@@ -34,7 +34,7 @@ const placeholderEmojis = ['🎬', '🎥', '📱', '🎪', '🎭'];
 
 
 // Return to Player percentages and Win Payout
-const RTP = 0.45;           // 35% chance that a spin is a "win"
+const RTP = 0.1;           // 25% chance that a spin is a "win"
 const WIN_PAYOUT = 100;     // payout for 5-of-a-kind
 
 
@@ -127,6 +127,56 @@ function playVisibleVideos() {
     });
 }
 
+// ============================================
+// MODAL
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const modal = document.getElementById('modal');
+    const infoBtn = document.getElementById('info-btn');
+    const closeBtn = document.getElementById('close-modal');
+
+    infoBtn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+
+    // Close when clicking outside modal
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const modal2 = document.getElementById('modal2');
+    const infoBtn = document.getElementById('info-btn2');
+    const closeBtn2 = document.getElementById('close-modal2');
+
+    infoBtn.addEventListener('click', () => {
+        modal2.classList.remove('hidden');
+    });
+
+    closeBtn2.addEventListener('click', () => {
+        modal2.classList.add('hidden');
+    });
+
+    // Close when clicking outside modal
+    modal2.addEventListener('click', (e) => {
+        if (e.target === modal2) {
+            modal2.classList.add('hidden');
+        }
+    });
+
+});
+
 
 
 function createSlotItem(index) {
@@ -186,23 +236,58 @@ function generateResults() {
 }
 
 let lastButtonState = false; // prevents spam
+let lastButton2State = false;
+let lastButton3State = false;
 
 function pollGamepad() {
-    if (gamepadIndex === null) return;
-
-    const gamepad = navigator.getGamepads()[gamepadIndex];
-    if (!gamepad) return;
-
-    // Button 0 = "Button 1" on most encoders
-    const pressed = gamepad.buttons[0].pressed;
-
-    // Only trigger on press (not hold)
-    if (pressed && !lastButtonState) {
-        console.log("Joystick Button 1 pressed");
-        spin(); 
+    if (gamepadIndex === null) {
+        requestAnimationFrame(pollGamepad);
+        return;
     }
 
-    lastButtonState = pressed;
+    const gamepad = navigator.getGamepads()[gamepadIndex];
+
+    if (!gamepad) {
+        requestAnimationFrame(pollGamepad);
+        return;
+    }
+
+    // =========================================
+    // BUTTON 1 = SPIN
+    // =========================================
+    const pressed1 = gamepad.buttons[0].pressed;
+
+    if (pressed1 && !lastButtonState) {
+        console.log("Button 1 = SPIN");
+        spin();
+    }
+    lastButtonState = pressed1;
+
+    // =========================================
+    // BUTTON 2 = MODAL 1
+    // =========================================
+    const pressed2 = gamepad.buttons[1].pressed;
+
+    if (pressed2 && !lastButton2State) {
+        console.log("Button 2 = MODAL 1");
+
+        const modal = document.getElementById("modal");
+        modal.classList.toggle("hidden");
+    }
+    lastButton2State = pressed2;
+
+    // =========================================
+    // BUTTON 3 = MODAL 2
+    // =========================================
+    const pressed3 = gamepad.buttons[2].pressed;
+
+    if (pressed3 && !lastButton3State) {
+        console.log("Button 3 = MODAL 2");
+
+        const modal2 = document.getElementById("modal2");
+        modal2.classList.toggle("hidden");
+    }
+    lastButton3State = pressed3;
 
     requestAnimationFrame(pollGamepad);
 }
