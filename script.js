@@ -238,6 +238,7 @@ function generateResults() {
 let lastButtonState = false; // prevents spam
 let lastButton2State = false;
 let lastButton3State = false;
+let lastButton4State = false;
 
 function pollGamepad() {
     if (gamepadIndex === null) {
@@ -288,6 +289,24 @@ function pollGamepad() {
         modal2.classList.toggle("hidden");
     }
     lastButton3State = pressed3;
+
+    // =========================================
+    // BUTTON 4 = REFRESH GAME / RESET SLOT
+    // =========================================
+    const pressed4 = gamepad.buttons[3].pressed;
+
+    if (pressed4 && !lastButton4State) {
+        console.log("Button 4 = REFRESH GAME");
+
+        credits = 100;
+        isSpinning = false;
+        updateCreditsDisplay();
+        initializeReels();
+        playVisibleVideos();
+        showResult("RESET!", "");
+    }
+
+    lastButton4State = pressed4;
 
     requestAnimationFrame(pollGamepad);
 }
