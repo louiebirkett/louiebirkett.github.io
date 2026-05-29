@@ -293,7 +293,7 @@ function pollGamepad() {
     // =========================================
     // BUTTON 4 = REFRESH GAME / RESET SLOT
     // =========================================
-    const pressed4 = gamepad.buttons[3].pressed;
+    const pressed4 = gamepad.buttons[11].pressed;
 
     if (pressed4 && !lastButton4State) {
         console.log("Button 4 = REFRESH GAME");
