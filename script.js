@@ -279,7 +279,7 @@ function pollGamepad() {
     // =========================================
     // BUTTON 3 = MODAL 2
     // =========================================
-    const pressed3 = gamepad.buttons[3].pressed;
+    const pressed3 = gamepad.buttons[11].pressed;
 
     if (pressed3 && !lastButton3State) {
         console.log("Button 3 = MODAL 2");
